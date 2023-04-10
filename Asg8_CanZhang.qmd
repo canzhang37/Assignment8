@@ -23,6 +23,7 @@ library(stringr)
 library(viridis)
 library(purrr)
 library(plotly)
+library(janitor)
 ```
 
 ## **Hennepin County Tidycensus Map**
