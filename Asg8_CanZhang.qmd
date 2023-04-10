@@ -18,18 +18,11 @@ editor: visual
 
 library(tidycensus)
 library(ggplot2)
-library(tidyverse)
 library(dplyr)
-library(osmdata)
-library(leaflet)
-library(haven)
 library(stringr)
-library(viridisLite)
 library(viridis)
 library(purrr)
 library(plotly)
-library(xfun)
-library(htmltools, quietly = TRUE)
 ```
 
 ## **Hennepin County Tidycensus Map**
