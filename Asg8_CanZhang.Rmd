@@ -1,0 +1,67 @@
+---
+title: "HW6 Dashboard"
+author: "Can Zhang"
+date: "2023-03-23"
+format: 
+  html:
+    embed-resources: true
+editor: visual
+
+---
+
+### Hennepin County Tidycensus Map
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+library(tidycensus)
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+library(osmdata)
+library(leaflet)
+library(haven)
+library(stringr)
+library(viridisLite)
+library(viridis)
+library(purrr)
+library(plotly)
+library(xfun)
+library(htmltools, quietly = TRUE)
+
+options(tigris_use_cache = TRUE)
+hennepin_pop_inc.df <- get_acs(
+  geography = "tract",
+  variables = c("B01003_001E","B19013_001"), #Code for total population and median income
+  state     = "MN",
+  county    = "Hennepin",
+  year      = 2020,
+  geometry  = TRUE,
+  cb        = FALSE
+) %>%
+  janitor::clean_names() 
+
+hennepin_pop.df <- hennepin_pop_inc.df %>% filter(variable=="B01003_001")
+
+hennepin_pop.gg <-  hennepin_pop.df %>%
+  mutate(
+    tract  = str_split(name, ",") %>%
+      map_chr(1) %>%
+      str_remove("Census Tract "),
+    text_label = str_c(
+      "Tract: ",
+      tract,
+      "\nPopulation: ",
+      round(estimate/ 1000, 0), 
+      " K"
+    )
+  ) %>%
+  ggplot() + 
+  geom_sf( aes(fill = estimate,text = text_label),alpha=0.8) + 
+  labs(title = "2020 US Census Population Estimates for Hennepin") + 
+  theme_void() + 
+  scale_fill_viridis_c("Population")
+
+ggplotly(hennepin_pop.gg, tooltip = "text") %>%
+  style(hoveron = "fills")
+```
