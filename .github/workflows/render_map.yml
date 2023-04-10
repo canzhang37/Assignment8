@@ -26,14 +26,12 @@ jobs:
         with:
             packages:
                any::tidycensus
-               any::tidyr
-               any::knitr
-               any::rmarkdown
-               any::dplyr
                any::ggplot2
-               any::lubridate
-               any::googleway
+               any::dplyr
+               any::stringr
+               any::viridis
                any::purrr
+               any::plotly
       - name: Render document
         uses: quarto-dev/quarto-actions/render@v2
         env:
