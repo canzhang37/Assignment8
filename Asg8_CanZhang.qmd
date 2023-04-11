@@ -8,7 +8,9 @@ editor: visual
 ---
 ### Date and Time: `r Sys.time()`
 ```{r setup, include=FALSE, message = FALSE}
-
+#| echo: false
+#| message: false
+#| warning: false
 library(tidycensus)
 library(ggplot2)
 library(dplyr)
@@ -21,7 +23,10 @@ library(janitor)
 
 ## **Hennepin County Tidycensus Map**
 
-```{r message = FALSE}
+```{r, message = FALSE, warning = FALSE,include=FALSE}
+#| echo: false
+#| message: false
+#| warning: false
 options(tigris_use_cache = TRUE)
 hennepin_pop_inc.df <- get_acs(
   geography = "tract",
@@ -54,7 +59,11 @@ hennepin_pop.gg <-  hennepin_pop.df %>%
   labs(title = "2020 US Census Population Estimates for Hennepin") + 
   theme_void() + 
   scale_fill_viridis_c("Population")
-
+```
+```{r, message = FALSE, warning = FALSE}
+#| echo: false
+#| message: false
+#| warning: false
 ggplotly(hennepin_pop.gg, tooltip = "text") %>%
   style(hoveron = "fills")
 ```
