@@ -6,15 +6,8 @@ format:
     embed-resources: true
 editor: visual
 ---
-
-# Assignment 8
-
 ### Date and Time: `r Sys.time()`
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
+```{r setup, include=FALSE, message = FALSE}
 
 library(tidycensus)
 library(ggplot2)
@@ -28,11 +21,7 @@ library(janitor)
 
 ## **Hennepin County Tidycensus Map**
 
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-
+```{r message = FALSE}
 options(tigris_use_cache = TRUE)
 hennepin_pop_inc.df <- get_acs(
   geography = "tract",
